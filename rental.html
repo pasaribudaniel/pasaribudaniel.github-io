@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>rental</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+</head>
+<body>
+
+  <div class="text-center">
+    <h3 style="color:yellow;"> RENTAL MOBIL</h3>
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand"  > <img src="foto_mobil.jpg"style="width: 100px;"></a>
+        
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="index.html">INDEX</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">mobil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="paketRental.html">paket Rental</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="rental.html">rental</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pelanggan.html">pelanggan</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="mencari" placeholder="mencari" aria-label="mencari">
+          <button class="btn btn-outline-success" type="submit">mencari</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <div id="app">
+    <div class="container mt-3">
+    </div> 
+    <!-- The Modal -->
+    <div class="modal fade" id="createUserModalCenter" tabindex="-1" role="dialog" aria-labelledby="createUserModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+          <h5 class="modal-title" id="createUserModalLongTitle">DARI USER</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="id_pelanggan">id_pelanggan</label>
+                  <input v-model="id_pelanggan" type="text" class="form-control" id="id_pelanggan" placeholder="" value="" required>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="id_paket">id_paket</label>
+                <div class="input-group">
+                  <input v-model="id_paket" type="text" class="form-control" id="id_paket" placeholder="id_paket" required>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="tanggal_pinjam">tanggal_pinjam</label>
+                <div class="input-group">
+                  <input v-model="tanggal_pinjam" type="text" class="form-control" id="tanggal_pinjam" placeholder="tanggal_pinjam" required>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="jumlah">jumlah</label>
+                <div class="input-group">
+                  <input v-model="jumlah" type="text" class="form-control" id="jumlah" placeholder="jumlah"
+                    required>
+                </div>
+              </div>
+            </form>
+          </div>
+    
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-dark" data-bs-dismiss="modal" v-on:click="createUser" >submit</button>
+
+          </div>
+    
+        </div>
+      </div>
+    </div>
+
+<!-- Modal update -->
+<div class="modal fade" id="updateUserModalCenter" tabindex="-1" aria-labelledby="updateUserModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateUserModalCenterTitle">Edit data</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="id_pelanggan">id_pelanggan</label>
+              <input v-model="id_pelanggan" type="text" class="form-control" id="id_pelangganUpdate" placeholder="id_pelanggan" value="" required>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="id_paket">id_paket</label>
+            <div class="input-group">
+              <input v-model="id_paket" type="text" class="form-control" id="id_paketlUpdate" placeholder="id_paket" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="tanggal_pinjam">tanggal_pinjam</label>
+            <div class="input-group">
+              <input v-model="tanggal_pinjam" type="text" class="form-control" id="tanggal_pinjamUpdate" placeholder="tanggal_pinjam" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="jumlah">jumlah</label>
+            <div class="input-group">
+              <input v-model="jumlah" type="text" class="form-control" id="jumlahUpdate" placeholder="jumlah"  required>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+    
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-dark" data-bs-dismiss="modal" v-on:click="updateUser(user)">update </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteUserModalCenter" tabindex="-1" aria-labelledby="deleteUserModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteUserModalCenterTitle"style="color:red;">peringatan !</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Apakah anda yakin ingin menghapus.?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">no</button>
+            <button type="submit" class="btn btn-dark" data-bs-dismiss="modal" v-on:click="deleteUser">yes</button>
+      </div> 
+    </div>
+  </div>
+</div>
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUserModalCenter">
+  NEW DATA
+</button>
+    <div class="container">
+      <div class="col-md-12">
+       <br>
+        <table class="table table-striped">
+          <tr>
+            <th>ID</th>
+            <th>id_pelanggan</th>
+            <th>id_paket</th>
+            <th>tanggal_pinjam</th>
+            <th>jumlah</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+          <tr v-for="user in users">
+            <td>{{ user.id }}</td>
+            <td>{{ user.id_pelanggan }}</td>
+            <td>{{ user.id_paket }}</td>
+            <td>{{ user.tanggal_pinjam }}</td>
+            <td>{{ user.jumlah }}</td>
+
+            <td><button class="btn btn-md btn-dark " data-bs-toggle="modal" data-bs-target="#updateUserModalCenter" v-on:click="getEdit(user)"style="color :red">edit</button></td>
+            <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModalCenter" v-on:click="getDelete(user)">delete </button></td>
+            
+        </table>
+      </div>
+    </div>
+  </div>
+  <footer class="text-center text-lg-start" style="background-color: #7d6eb4;">
+    <div class="container d-flex justify-content-center py-5">
+      <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #312881;">
+        <i class="fa fa-facebook-f"></i>
+      </button>
+      <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #4521bd;">
+        <i class="fa fa-youtube"></i>
+      </button>
+      <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #3718be;">
+        <i class="fa fa-instagram"></i>
+      </button>
+      <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #3416b6;">
+        <i class="fa fa-twitter"></i>
+      </button>
+    </div>
+
+    <!-- Copyright -->
+    <div class="text-center text-white p-3" style="background-color: rgba(199, 23, 23, 0.857);">
+      ©daniel pasaribu
+    </div>
+    <!-- Copyright -->
+  </footer>
+  
+</div>
+<!-- End of .container -->
+  <!-- Axios -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        errors: [],
+        users: [],
+        userIdEdit: null,
+        userIdDelete: null,
+        editMode: false,
+        deleteMode: false,
+        id_pelanggan: '',
+        id_paket: '',
+        tanggal_pinjam: '',
+        jumlah: '',
+       id_pelangganUpdate:'',
+        id_paketUpdate:'',
+        tanggal_pinjamUpdate:' ',
+        jumlahUpdate:'',
+      },
+      mounted: function () {
+        this.getUser();
+      },
+      methods: {
+        getUser() {
+          axios.get('https://62201b9dce99a7de195008d3.mockapi.io/rentalmobil/rental')
+            .then(response => {
+              this.users = response.data;
+              console.log(response);
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        },
+        createUser: function () {
+          var createUserModalCenter = document.getElementById('createUserModalCenter')
+          axios.post('https://62201b9dce99a7de195008d3.mockapi.io/rentalmobil/rental/', {       
+              no_polsi: this.id_pelanggan,
+              id_paket: this.id_paket,
+              tanggal_pinjam: this.tanggal_pinjam,
+              jumlah: this.jumlah,
+                    })
+            .then(response => {
+                  this.getUser();
+                  swal('created', 'Berhasil Menambah Data', 'success')    
+                  this.resetForm();
+                  console.log(response);
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+
+        },
+        resetForm: function () {
+          this.editMode = false;
+          this.deleteMode = false;
+          this.userIdEdit = null;
+          this.id_pelanggan = null;
+          this.id_paket = null;
+          this.tanggal_pinjam = null;
+          this.jumlah = null;
+        },
+
+        getEdit: function (user) {
+          var updateUserModalCenter = document.getElementById('updateUserModalCenter');
+          this.message = null;
+          this.editMode = true;
+          this.deleteMode = false;
+          this.userIdEdit = user.id;
+          this.id_pelanggan = user.id_pelanggan;
+          this.id_paket = user.id_paket;
+          this.tanggal_pinjam = user.tanggal_pinjam;
+          this.jumlah = user.jumlah;
+        },
+        getDelete: function (user) {
+          //Show the delete modal
+          var deleteUserModalCenter = document.getElementById('deleteUserModalCenter');
+          this.message = null;
+          this.deleteMode = true;
+          this.editMode = false;
+          this.userIdDelete = user.id;
+          this.id_pelangganUpdate = user.id_pelangganUpdate;
+          this.id_paketUpdate = user.id_paketUpdate;
+          this.tanggal_pinjamUpdate = user.tanggal_pinjamUpdate;
+          this.jumlahUpdate = user.jumlahUpdate;
+        
+        },
+        updateUser: function () {
+          axios.put(`https://62201b9dce99a7de195008d3.mockapi.io/rentalmobil/rental/${this.userIdEdit}`, {
+                id_pelanggan: this.id_pelanggan,
+                id_paket: this.id_paket,
+                tanggal_pinjam: this.tanggal_pinjam,
+                jumlah: this.jumlah,
+              })
+            .then(res => {
+              swal('updated', 'Berhasil Mengupdate Data', 'warning')
+              var updateUserModalCenter = document.getElementById('updateUserModalCenter');
+              this.resetForm();
+              this.getUser();
+            })
+
+            .catch(err => {
+              console.log(err);
+            })
+        },
+        deleteUser: function () {
+          axios.delete( `https://62201b9dce99a7de195008d3.mockapi.io/rentalmobil/rental/${this.userIdDelete}`
+            )
+            .then(res => {
+              swal('deleted', 'Berhasil Menghapus Data')
+              var deleteUserModalCenter = document.getElementById('deleteUserModalCenter');
+              this.resetForm();
+              this.getUser();
+            })
+            .catch(err => {
+              console.log(err);
+            })
+        }
+      }
+    })
+  </script>
+
+<!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script></body>
+</html>
